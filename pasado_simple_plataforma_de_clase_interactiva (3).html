@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Past Masterclass - Interactive English Unit</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .verb-highlight {
+            transition: all 0.2s ease;
+        }
+        .verb-highlight.active {
+            background-color: #fef08a;
+            color: #854d0e;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white">
+
+    <header class="bg-brand-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo & Lesson Info -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-500/30 border border-indigo-400/40 flex items-center justify-center text-indigo-300 font-bold text-xl">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-base sm:text-lg font-bold leading-tight">Simple Past:came, visited, played, flew</h1>
+                        <p class="text-xs text-indigo-200 hidden sm:block">Sesión de 50 Minutos • Nivel A1-A2 (Familia y Escuela)</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs -->
+                <nav class="hidden md:flex gap-1">
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-3 py-2 rounded-lg text-xs font-semibold bg-white/10 text-white hover:bg-white/20 transition flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie"></i> Dashboard
+                    </button>
+                    <button onclick="switchTab('reading-writing')" id="nav-reading-writing" class="px-3 py-2 rounded-lg text-xs font-semibold text-indigo-200 hover:text-white hover:bg-white/10 transition flex items-center gap-2">
+                        <i class="fa-solid fa-book-open"></i> Reading & Writing
+                    </button>
+                    <button onclick="switchTab('speaking-listening')" id="nav-speaking-listening" class="px-3 py-2 rounded-lg text-xs font-semibold text-indigo-200 hover:text-white hover:bg-white/10 transition flex items-center gap-2">
+                        <i class="fa-solid fa-comments"></i> Speaking & Listening
+                    </button>
+                    <button onclick="switchTab('evaluations')" id="nav-evaluations" class="px-3 py-2 rounded-lg text-xs font-semibold text-indigo-200 hover:text-white hover:bg-white/10 transition flex items-center gap-2">
+                        <i class="fa-solid fa-check-double"></i> Exit Ticket
+                    </button>
+                    <button onclick="switchTab('rubric')" id="nav-rubric" class="px-3 py-2 rounded-lg text-xs font-semibold text-indigo-200 hover:text-white hover:bg-white/10 transition flex items-center gap-2">
+                        <i class="fa-solid fa-award"></i> Proyecto y Rúbrica
+                    </button>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-indigo-200 hover:text-white hover:bg-white/10">
+                    <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-900 border-t border-indigo-800 px-4 py-3 space-y-1">
+            <button onclick="switchTab('dashboard'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-white hover:bg-white/10">📊 Dashboard General</button>
+            <button onclick="switchTab('reading-writing'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-indigo-200 hover:bg-white/10">📖 Worksheet 1: Reading & Writing</button>
+            <button onclick="switchTab('speaking-listening'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-indigo-200 hover:bg-white/10">🗣️ Worksheet 2: Speaking & Listening</button>
+            <button onclick="switchTab('evaluations'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-indigo-200 hover:bg-white/10">🎯 Exit Ticket / Quiz</button>
+            <button onclick="switchTab('rubric'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-indigo-200 hover:bg-white/10">🏆 Proyecto y Rúbrica</button>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- ================= TAB 1: DASHBOARD GENERAL ================= -->
+        <section id="tab-dashboard" class="space-y-6">
+            
+            <!-- Quick Status Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-slate-500 font-semibold uppercase tracking-wider block">Duración</span>
+                        <span class="text-lg font-bold text-slate-800">50 Minutos</span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-spell-check"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-slate-500 font-semibold uppercase tracking-wider block">Verbos Objetivo</span>
+                        <span class="text-sm font-bold text-slate-800">came, visited, played, flew</span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-slate-500 font-semibold uppercase tracking-wider block">Expresiones de Tiempo</span>
+                        <span class="text-xs font-bold text-slate-800">yesterday, last week, 2 days ago</span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-people-roof"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-slate-500 font-semibold uppercase tracking-wider block">Contextos</span>
+                        <span class="text-sm font-bold text-slate-800">Familia & Escuela</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Class Timeline -->
+                <div class="lg:col-span-2 bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                    <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-list-ol text-indigo-600"></i> Cronograma de la Clase (50 Minutos)
+                    </h2>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 p-3 rounded-xl bg-emerald-50 border border-emerald-100">
+                            <span class="px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-bold text-xs">00-08m</span>
+                            <div>
+                                <h3 class="font-bold text-sm text-emerald-900">1. Warm-up & Evaluación Diagnóstica ("Verb Time-Jump")</h3>
+                                <p class="text-xs text-emerald-700 mt-0.5">Juego dinámico con pelota para evaluar conocimientos previos de verbos e infinitivos.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 p-3 rounded-xl bg-blue-50 border border-blue-100">
+                            <span class="px-2.5 py-1 rounded-lg bg-blue-600 text-white font-bold text-xs">08-18m</span>
+                            <div>
+                                <h3 class="font-bold text-sm text-blue-900">2. Presentación & Input Comprensible (Storytelling)</h3>
+                                <p class="text-xs text-blue-700 mt-0.5">Presentación visual en pizarra con mini-historias del contexto familiar y escolar.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 p-3 rounded-xl bg-amber-50 border border-amber-100">
+                            <span class="px-2.5 py-1 rounded-lg bg-amber-600 text-white font-bold text-xs">18-32m</span>
+                            <div>
+                                <h3 class="font-bold text-sm text-amber-900">3. Práctica Guiada: Worksheet 1 (Reading & Writing)</h3>
+                                <p class="text-xs text-amber-700 mt-0.5">Monitoreo formativo individual/parejas con retroalimentación inmediata.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 p-3 rounded-xl bg-purple-50 border border-purple-100">
+                            <span class="px-2.5 py-1 rounded-lg bg-purple-600 text-white font-bold text-xs">32-44m</span>
+                            <div>
+                                <h3 class="font-bold text-sm text-purple-900">4. Producción: Worksheet 2 (Speaking & Listening Pair-Work)</h3>
+                                <p class="text-xs text-purple-700 mt-0.5">Entrevista entre compañeros utilizando las tarjetas interactivas de interacción.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 p-3 rounded-xl bg-rose-50 border border-rose-100">
+                            <span class="px-2.5 py-1 rounded-lg bg-rose-600 text-white font-bold text-xs">44-50m</span>
+                            <div>
+                                <h3 class="font-bold text-sm text-rose-900">5. Cierre: Exit Ticket & Explicación del Proyecto</h3>
+                                <p class="text-xs text-rose-700 mt-0.5">Evaluación sumativa rápida y asignación de "My Past Timeline Poster".</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Teacher Stopwatch / Timer Widget -->
+                <div class="bg-gradient-to-br from-brand-900 to-indigo-900 rounded-2xl p-6 text-white shadow-md flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-bold uppercase tracking-wider text-indigo-300">Reloj de Clase</span>
+                            <i class="fa-solid fa-stopwatch text-indigo-300 text-xl"></i>
+                        </div>
+                        <div class="text-center py-6">
+                            <span id="timer-display" class="text-5xl font-black tracking-tight font-mono">50:00</span>
+                            <span class="block text-xs text-indigo-200 mt-2" id="timer-status">Listo para iniciar la sesión</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex gap-2">
+                            <button onclick="startTimer()" id="btn-start" class="flex-1 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 font-bold text-xs shadow transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-play"></i> Iniciar
+                            </button>
+                            <button onclick="pauseTimer()" id="btn-pause" class="flex-1 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 font-bold text-xs shadow transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-pause"></i> Pausar
+                            </button>
+                        </div>
+                        <button onclick="resetTimer()" class="w-full py-2 rounded-xl bg-white/10 hover:bg-white/20 font-semibold text-xs transition">
+                            Reiniciar a 50 Minutos
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Target Grammar Quick Reference -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                <h3 class="text-md font-bold text-slate-800 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-spell-check text-indigo-600"></i> Tabla de Referencia de Verbos
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <span class="text-xs text-slate-400 block uppercase font-bold">Irregular</span>
+                        <span class="text-lg font-extrabold text-slate-700">come</span>
+                        <i class="fa-solid fa-arrow-down text-indigo-500 my-1 block"></i>
+                        <span class="text-xl font-black text-indigo-600 bg-indigo-50 px-3 py-1 rounded-lg inline-block">came</span>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <span class="text-xs text-slate-400 block uppercase font-bold">Regular</span>
+                        <span class="text-lg font-extrabold text-slate-700">visit</span>
+                        <i class="fa-solid fa-arrow-down text-indigo-500 my-1 block"></i>
+                        <span class="text-xl font-black text-indigo-600 bg-indigo-50 px-3 py-1 rounded-lg inline-block">visited</span>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <span class="text-xs text-slate-400 block uppercase font-bold">Regular</span>
+                        <span class="text-lg font-extrabold text-slate-700">play</span>
+                        <i class="fa-solid fa-arrow-down text-indigo-500 my-1 block"></i>
+                        <span class="text-xl font-black text-indigo-600 bg-indigo-50 px-3 py-1 rounded-lg inline-block">played</span>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <span class="text-xs text-slate-400 block uppercase font-bold">Irregular</span>
+                        <span class="text-lg font-extrabold text-slate-700">fly</span>
+                        <i class="fa-solid fa-arrow-down text-indigo-500 my-1 block"></i>
+                        <span class="text-xl font-black text-indigo-600 bg-indigo-50 px-3 py-1 rounded-lg inline-block">flew</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 2: WORKSHEET 1 (READING & WRITING) ================= -->
+        <section id="tab-reading-writing" class="hidden space-y-6">
+            
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                
+                <div class="border-b border-slate-200 pb-6 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <span class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-wider">Worksheet 1</span>
+                        <h2 class="text-2xl font-black text-slate-900 mt-1">Reading & Writing Practice</h2>
+                    </div>
+                    <button onclick="toggleHighlightVerbs()" id="btn-highlight" class="px-4 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold text-xs transition flex items-center gap-2">
+                        <i class="fa-solid fa-highlighter"></i> Resaltar Verbos en Pasado
+                    </button>
+                </div>
+
+                <!-- PART A: Reading Comprehension -->
+                <div class="mb-10">
+                    <h3 class="text-lg font-bold text-indigo-900 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-book-open text-indigo-600"></i> PART A: Reading Comprehension
+                    </h3>
+                    
+                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 leading-relaxed text-slate-700 text-base mb-6 relative">
+                        <p>
+                            Yesterday was an exciting day! At school, a guest speaker 
+                            <span class="verb-highlight">came</span> to our class and showed us how birds 
+                            <span class="verb-highlight">flew</span> thousands of miles during winter. At recess, my classmates and I 
+                            <span class="verb-highlight">played</span> soccer in the yard.
+                        </p>
+                        <p class="mt-3">
+                            After school, my family and I 
+                            <span class="verb-highlight">visited</span> my grandmother at her house. My cousins also 
+                            <span class="verb-highlight">came</span> over, and we 
+                            <span class="verb-highlight">played</span> video games until 8:00 PM.
+                        </p>
+                    </div>
+
+                    <!-- Reading Questions -->
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-sm text-slate-800">Responde las preguntas de comprensión:</h4>
+                        
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">1. Who came to the classroom yesterday?</label>
+                            <input type="text" id="q-read-1" placeholder="Escribe tu respuesta aquí..." class="w-full p-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">2. What did the students play at recess?</label>
+                            <input type="text" id="q-read-2" placeholder="Escribe tu respuesta aquí..." class="w-full p-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">3. Who did the family visit after school?</label>
+                            <input type="text" id="q-read-3" placeholder="Escribe tu respuesta aquí..." class="w-full p-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PART B: Writing Fill in the blanks -->
+                <div>
+                    <h3 class="text-lg font-bold text-indigo-900 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-pen-to-square text-indigo-600"></i> PART B: Grammar & Writing Focus
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">Completa las oraciones escribiendo la forma en pasado del verbo en paréntesis (<strong>came, visited, played, flew</strong>):</p>
+
+                    <form id="writing-form" onsubmit="checkWritingAnswers(event)" class="space-y-4">
+                        
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <span class="font-bold text-xs text-slate-400">1.</span>
+                            <p class="text-sm text-slate-800 flex-1">
+                                My best friend 
+                                <input type="text" id="blank-1" data-answer="visited" class="mx-2 px-3 py-1.5 rounded-lg border border-slate-300 w-32 font-bold text-indigo-600 text-center text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="visit"> 
+                                me <strong>last weekend</strong>.
+                            </p>
+                            <span id="feedback-1" class="text-xs font-bold"></span>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <span class="font-bold text-xs text-slate-400">2.</span>
+                            <p class="text-sm text-slate-800 flex-1">
+                                A small bird 
+                                <input type="text" id="blank-2" data-answer="flew" class="mx-2 px-3 py-1.5 rounded-lg border border-slate-300 w-32 font-bold text-indigo-600 text-center text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="fly"> 
+                                into our classroom <strong>two days ago</strong>.
+                            </p>
+                            <span id="feedback-2" class="text-xs font-bold"></span>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <span class="font-bold text-xs text-slate-400">3.</span>
+                            <p class="text-sm text-slate-800 flex-1">
+                                The teacher 
+                                <input type="text" id="blank-3" data-answer="came" class="mx-2 px-3 py-1.5 rounded-lg border border-slate-300 w-32 font-bold text-indigo-600 text-center text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="come"> 
+                                to school early <strong>yesterday</strong>.
+                            </p>
+                            <span id="feedback-3" class="text-xs font-bold"></span>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <span class="font-bold text-xs text-slate-400">4.</span>
+                            <p class="text-sm text-slate-800 flex-1">
+                                My brother and I 
+                                <input type="text" id="blank-4" data-answer="played" class="mx-2 px-3 py-1.5 rounded-lg border border-slate-300 w-32 font-bold text-indigo-600 text-center text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="play"> 
+                                basketball in the park <strong>last night</strong>.
+                            </p>
+                            <span id="feedback-4" class="text-xs font-bold"></span>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <span class="font-bold text-xs text-slate-400">5.</span>
+                            <p class="text-sm text-slate-800 flex-1">
+                                My aunt 
+                                <input type="text" id="blank-5" data-answer="flew" class="mx-2 px-3 py-1.5 rounded-lg border border-slate-300 w-32 font-bold text-indigo-600 text-center text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="fly"> 
+                                to Mexico City <strong>last month</strong>.
+                            </p>
+                            <span id="feedback-5" class="text-xs font-bold"></span>
+                        </div>
+
+                        <div class="pt-4 flex justify-end gap-3">
+                            <button type="submit" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow transition text-sm">
+                                <i class="fa-solid fa-check mr-2"></i> Verificar Respuestas
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= TAB 3: WORKSHEET 2 (SPEAKING & LISTENING) ================= -->
+        <section id="tab-speaking-listening" class="hidden space-y-6">
+            
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                
+                <div class="border-b border-slate-200 pb-6 mb-6">
+                    <span class="px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-wider">Worksheet 2</span>
+                    <h2 class="text-2xl font-black text-slate-900 mt-1">Past Memory Exchange (Pair Work)</h2>
+                    <p class="text-slate-600 text-xs sm:text-sm mt-1">Entrevista a tu compañero. Haz la pregunta, escucha atentamente y escribe su respuesta usando la estructura gramatical en pasado.</p>
+                </div>
+
+                <!-- Sentence Bank Helper -->
+                <div class="p-4 rounded-2xl bg-purple-50 border border-purple-100 mb-8">
+                    <h4 class="font-bold text-xs text-purple-900 uppercase tracking-wider mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb text-purple-600"></i> Banco de Oraciones (Sentence Bank)
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-purple-800">
+                        <div class="bg-white p-2.5 rounded-lg border border-purple-100">
+                            • <em>"My [family member/friend] <strong>visited</strong> me..."</em>
+                        </div>
+                        <div class="bg-white p-2.5 rounded-lg border border-purple-100">
+                            • <em>"I <strong>played</strong> [soccer / video games / board games]..."</em>
+                        </div>
+                        <div class="bg-white p-2.5 rounded-lg border border-purple-100">
+                            • <em>"My [friend / teacher / cousin] <strong>came</strong>..."</em>
+                        </div>
+                        <div class="bg-white p-2.5 rounded-lg border border-purple-100">
+                            • <em>"I <strong>flew</strong> a paper airplane / a kite [yesterday / last week]..."</em>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Pair Work Grid -->
+                <div class="space-y-6">
+                    
+                    <!-- Question 1 -->
+                    <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 space-y-3">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                            <span class="font-bold text-sm text-indigo-700 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-question text-indigo-500"></i> 1. Who visited you last weekend?
+                            </span>
+                            <button onclick="speakText('Who visited you last weekend?')" class="px-3 py-1 rounded-lg bg-indigo-100 hover:bg-indigo-200 text-indigo-700 text-xs font-semibold transition">
+                                <i class="fa-solid fa-volume-high mr-1"></i> Escuchar Pronunciación
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <input type="text" placeholder="Nombre del compañero" class="p-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                            <input type="text" placeholder="Respuesta completa (ej. My uncle visited my family.)" class="sm:col-span-2 p-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 space-y-3">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                            <span class="font-bold text-sm text-indigo-700 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-question text-indigo-500"></i> 2. Did you play sports or games yesterday?
+                            </span>
+                            <button onclick="speakText('Did you play sports or games yesterday?')" class="px-3 py-1 rounded-lg bg-indigo-100 hover:bg-indigo-200 text-indigo-700 text-xs font-semibold transition">
+                                <i class="fa-solid fa-volume-high mr-1"></i> Escuchar Pronunciación
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <input type="text" placeholder="Nombre del compañero" class="p-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                            <input type="text" placeholder="Respuesta completa (ej. I played soccer with my cousins.)" class="sm:col-span-2 p-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 space-y-3">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                            <span class="font-bold text-sm text-indigo-700 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-question text-indigo-500"></i> 3. Who came to your home two days ago?
+                            </span>
+                            <button onclick="speakText('Who came to your home two days ago?')" class="px-3 py-1 rounded-lg bg-indigo-100 hover:bg-indigo-200 text-indigo-700 text-xs font-semibold transition">
+                                <i class="fa-solid fa-volume-high mr-1"></i> Escuchar Pronunciación
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <input type="text" placeholder="Nombre del compañero" class="p-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                            <input type="text" placeholder="Respuesta completa (ej. My best friend came to my home.)" class="sm:col-span-2 p-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 space-y-3">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                            <span class="font-bold text-sm text-indigo-700 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-question text-indigo-500"></i> 4. Have you ever flown a kite or paper airplane? When?
+                            </span>
+                            <button onclick="speakText('Have you ever flown a kite or paper airplane? When?')" class="px-3 py-1 rounded-lg bg-indigo-100 hover:bg-indigo-200 text-indigo-700 text-xs font-semibold transition">
+                                <i class="fa-solid fa-volume-high mr-1"></i> Escuchar Pronunciación
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <input type="text" placeholder="Nombre del compañero" class="p-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                            <input type="text" placeholder="Respuesta completa (ej. I flew a kite last weekend.)" class="sm:col-span-2 p-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= TAB 4: EVALUATIONS (EXIT TICKET) ================= -->
+        <section id="tab-evaluations" class="hidden space-y-6">
+            
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm max-w-3xl mx-auto">
+                
+                <div class="text-center border-b border-slate-200 pb-6 mb-6">
+                    <span class="px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-bold uppercase tracking-wider">Evaluación Sumativa</span>
+                    <h2 class="text-2xl font-black text-slate-900 mt-1">Exit Ticket (6 Minutos)</h2>
+                    <p class="text-xs text-slate-500 mt-1">Responde las preguntas antes de terminar la sesión para comprobar lo aprendido hoy.</p>
+                </div>
+
+                <form id="quiz-form" onsubmit="evaluateQuiz(event)" class="space-y-6">
+                    
+                    <!-- Question 1 -->
+                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                        <label class="block font-bold text-sm text-slate-800 mb-3">
+                            1. Yesterday, my cousin ___________ to my house.
+                        </label>
+                        <div class="space-y-2 text-sm">
+                            <label class="flex items-center p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-indigo-50 cursor-pointer transition">
+                                <input type="radio" name="q1" value="a" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500" required>
+                                <span class="ml-3 text-slate-700">a) come</span>
+                            </label>
+                            <label class="flex items-center p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-indigo-50 cursor-pointer transition">
+                                <input type="radio" name="q1" value="b" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 text-slate-700">b) came</span>
+                            </label>
+                            <label class="flex items-center p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-indigo-50 cursor-pointer transition">
+                                <input type="radio" name="q1" value="c" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 text-slate-700">c) flied</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                        <label class="block font-bold text-sm text-slate-800 mb-3">
+                            2. We ___________ the science museum last week with our teacher.
+                        </label>
+                        <div class="space-y-2 text-sm">
+                            <label class="flex items-center p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-indigo-50 cursor-pointer transition">
+                                <input type="radio" name="q2" value="a" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500" required>
+                                <span class="ml-3 text-slate-700">a) visited</span>
+                            </label>
+                            <label class="flex items-center p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-indigo-50 cursor-pointer transition">
+                                <input type="radio" name="q2" value="b" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 text-slate-700">b) visit</span>
+                            </label>
+                            <label class="flex items-center p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-indigo-50 cursor-pointer transition">
+                                <input type="radio" name="q2" value="c" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 text-slate-700">c) played</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                        <label class="block font-bold text-sm text-slate-800 mb-2">
+                            3. Write one complete sentence using <strong>PLAYED</strong> or <strong>FLEW</strong> and a past time expression (<em>yesterday, last week, etc.</em>):
+                        </label>
+                        <textarea id="q3-text" rows="3" required placeholder="Escribe tu oración completa en inglés..." class="w-full p-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none resize-none"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-3.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl shadow transition text-sm">
+                        Enviar Exit Ticket
+                    </button>
+                </form>
+
+                <!-- Quiz Result Box -->
+                <div id="quiz-result" class="hidden mt-6 p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-center">
+                    <i class="fa-solid fa-award text-4xl text-emerald-500 mb-2"></i>
+                    <h3 class="text-xl font-bold text-emerald-900 mb-1">¡Exit Ticket Completado!</h3>
+                    <p class="text-sm text-emerald-700" id="quiz-score-text"></p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= TAB 5: RUBRIC & PROJECT ================= -->
+        <section id="tab-rubric" class="hidden space-y-6">
+            
+            <!-- Project Banner -->
+            <div class="bg-gradient-to-r from-purple-900 to-brand-900 rounded-2xl p-6 sm:p-8 text-white shadow-md">
+                <span class="px-3 py-1 rounded-full bg-purple-400/20 border border-purple-300/30 text-purple-200 text-xs font-bold uppercase tracking-wider inline-block mb-3">Mini-Proyecto Creativo</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold mb-2">"My Past Timeline Poster"</h2>
+                <p class="text-purple-100 text-sm max-w-3xl leading-relaxed">
+                    Crea un mini-póster titulado <em>"My Unforgettable Past Week"</em>. Incluye 4 imágenes de actividades pasadas en el contexto escolar o familiar y escribe 4 oraciones utilizando obligatoriamente los verbos: <strong>came, visited, played, flew</strong>.
+                </p>
+            </div>
+
+            <!-- Interactive Rubric Grading Tool -->
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <div class="flex justify-between items-center border-b border-slate-200 pb-4 mb-6">
+                    <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-calculator text-indigo-600"></i> Calculadora Interactiva de Rúbrica (Para el Profesor)
+                    </h3>
+                    <span id="rubric-total-score" class="text-xl font-black text-indigo-600 bg-indigo-50 px-4 py-1.5 rounded-xl border border-indigo-100">Score: 16 / 16 (100%)</span>
+                </div>
+
+                <div class="space-y-6">
+                    
+                    <!-- Criterion 1 -->
+                    <div>
+                        <label class="block text-sm font-bold text-slate-800 mb-2">1. Uso de Verbos Objetivo (came, visited, played, flew)</label>
+                        <select onchange="calculateRubricScore()" id="rub-c1" class="w-full p-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                            <option value="4">4 - Sobresaliente: Usa correctamente los 4 verbos sin errores gramaticales.</option>
+                            <option value="3">3 - Notable: Usa los 4 verbos con 1 error menor de ortografía o forma.</option>
+                            <option value="2">2 - En Desarrollo: Usa 2 a 3 verbos correctamente en pasado.</option>
+                            <option value="1">1 - Requiere Apoyo: Confunde las formas en pasado o usa solo infinitivo.</option>
+                        </select>
+                    </div>
+
+                    <!-- Criterion 2 -->
+                    <div>
+                        <label class="block text-sm font-bold text-slate-800 mb-2">2. Expresiones de Tiempo (yesterday, last week, etc.)</label>
+                        <select onchange="calculateRubricScore()" id="rub-c2" class="w-full p-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                            <option value="4">4 - Sobresaliente: Integra 3 o más expresiones temporales pasadas de forma precisa.</option>
+                            <option value="3">3 - Notable: Usa 2 expresiones de tiempo pasadas de forma adecuada.</option>
+                            <option value="2">2 - En Desarrollo: Usa 1 expresión de tiempo pasada correctamente.</option>
+                            <option value="1">1 - Requiere Apoyo: No incluye expresiones de tiempo o las usa incorrectamente.</option>
+                        </select>
+                    </div>
+
+                    <!-- Criterion 3 -->
+                    <div>
+                        <label class="block text-sm font-bold text-slate-800 mb-2">3. Contextualización (Familia / Escuela)</label>
+                        <select onchange="calculateRubricScore()" id="rub-c3" class="w-full p-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                            <option value="4">4 - Sobresaliente: Las oraciones reflejan claramente contextos familiares y escolares coherentes.</option>
+                            <option value="3">3 - Notable: Las oraciones se entienden en su contexto con mínimas imprecisiones.</option>
+                            <option value="2">2 - En Desarrollo: El contexto es confuso o poco claro en algunas oraciones.</option>
+                            <option value="1">1 - Requiere Apoyo: Las oraciones no tienen sentido dentro del contexto solicitado.</option>
+                        </select>
+                    </div>
+
+                    <!-- Criterion 4 -->
+                    <div>
+                        <label class="block text-sm font-bold text-slate-800 mb-2">4. Producción Oral & Fluidez (Speaking)</label>
+                        <select onchange="calculateRubricScore()" id="rub-c4" class="w-full p-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                            <option value="4">4 - Sobresaliente: Pronuncia los verbos claramente (visited /ɪd/, played /d/) y habla con fluidez.</option>
+                            <option value="3">3 - Notable: Buena pronunciación general con pequeñas pausas al recordar el pasado.</option>
+                            <option value="2">2 - En Desarrollo: Muestra dificultad en la pronunciación de verbos pasados.</option>
+                            <option value="1">1 - Requiere Apoyo: Requiere lectura directa asistida para expresarse.</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        // Tab switching logic
+        function switchTab(tabId) {
+            const tabs = ['dashboard', 'reading-writing', 'speaking-listening', 'evaluations', 'rubric'];
+            
+            tabs.forEach(tab => {
+                const content = document.getElementById(`tab-${tab}`);
+                const navBtn = document.getElementById(`nav-${tab}`);
+                
+                if (tab === tabId) {
+                    content.classList.remove('hidden');
+                    if (navBtn) {
+                        navBtn.className = "px-3 py-2 rounded-lg text-xs font-semibold bg-white/10 text-white hover:bg-white/20 transition flex items-center gap-2";
+                    }
+                } else {
+                    content.classList.add('hidden');
+                    if (navBtn) {
+                        navBtn.className = "px-3 py-2 rounded-lg text-xs font-semibold text-indigo-200 hover:text-white hover:bg-white/10 transition flex items-center gap-2";
+                    }
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // --- CLASS STOPWATCH TIMER ---
+        let timerSeconds = 50 * 60;
+        let timerInterval = null;
+        let isTimerRunning = false;
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timerSeconds / 60);
+            const seconds = timerSeconds % 60;
+            document.getElementById('timer-display').innerText = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (isTimerRunning) return;
+            isTimerRunning = true;
+            document.getElementById('timer-status').innerText = 'En curso - ¡Buena clase!';
+            timerInterval = setInterval(() => {
+                if (timerSeconds > 0) {
+                    timerSeconds--;
+                    updateTimerDisplay();
+                } else {
+                    clearInterval(timerInterval);
+                    isTimerRunning = false;
+                    document.getElementById('timer-status').innerText = '¡Tiempo de clase finalizado!';
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            document.getElementById('timer-status').innerText = 'Reloj en pausa';
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            timerSeconds = 50 * 60;
+            updateTimerDisplay();
+            document.getElementById('timer-status').innerText = 'Listo para iniciar la sesión';
+        }
+
+        // --- HIGHLIGHT VERBS LOGIC ---
+        function toggleHighlightVerbs() {
+            const highlights = document.querySelectorAll('.verb-highlight');
+            highlights.forEach(el => el.classList.toggle('active'));
+        }
+
+        // --- CHECK WRITING ANSWERS ---
+        function checkWritingAnswers(e) {
+            e.preventDefault();
+            for (let i = 1; i <= 5; i++) {
+                const input = document.getElementById(`blank-${i}`);
+                const feedback = document.getElementById(`feedback-${i}`);
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = input.dataset.answer.toLowerCase();
+
+                if (userAnswer === correctAnswer) {
+                    feedback.innerText = '✓ ¡Correcto!';
+                    feedback.className = 'text-xs font-bold text-emerald-600';
+                    input.className = 'mx-2 px-3 py-1.5 rounded-lg border-2 border-emerald-500 w-32 font-bold text-emerald-600 text-center text-sm bg-emerald-50';
+                } else {
+                    feedback.innerText = `✗ Correcto: ${correctAnswer}`;
+                    feedback.className = 'text-xs font-bold text-rose-600';
+                    input.className = 'mx-2 px-3 py-1.5 rounded-lg border-2 border-rose-500 w-32 font-bold text-rose-600 text-center text-sm bg-rose-50';
+                }
+            }
+        }
+
+        // --- TEXT TO SPEECH PRONUNCIATION HELPER ---
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                speechSynthesis.speak(utterance);
+            } else {
+                alert('La función de audio no está soportada en este navegador.');
+            }
+        }
+
+        // --- QUIZ EVALUATION ---
+        function evaluateQuiz(e) {
+            e.preventDefault();
+            const q1 = document.querySelector('input[name="q1"]:checked')?.value;
+            const q2 = document.querySelector('input[name="q2"]:checked')?.value;
+            const q3Text = document.getElementById('q3-text').value.trim();
+
+            let score = 0;
+            if (q1 === 'b') score += 1; // came
+            if (q2 === 'a') score += 1; // visited
+            if (q3Text.length > 5) score += 1; // valid sentence attempt
+
+            const resultBox = document.getElementById('quiz-result');
+            const resultText = document.getElementById('quiz-score-text');
+
+            resultText.innerText = `Obtuviste ${score} de 3 puntos en tu Exit Ticket. ¡Excelente trabajo en clase!`;
+            resultBox.classList.remove('hidden');
+            resultBox.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- RUBRIC CALCULATOR ---
+        function calculateRubricScore() {
+            const c1 = parseInt(document.getElementById('rub-c1').value);
+            const c2 = parseInt(document.getElementById('rub-c2').value);
+            const c3 = parseInt(document.getElementById('rub-c3').value);
+            const c4 = parseInt(document.getElementById('rub-c4').value);
+
+            const total = c1 + c2 + c3 + c4;
+            const percentage = Math.round((total / 16) * 100);
+
+            document.getElementById('rubric-total-score').innerText = `Score: ${total} / 16 (${percentage}%)`;
+        }
+    </script>
+</body>
+</html>
